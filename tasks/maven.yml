@@ -1,0 +1,12 @@
+---
+platform: linux
+image_resource:
+    type: docker
+    source: {repository: maven, tag: 3.3.9-jdk-8}
+
+inputs:
+    - name: source_code
+    - name: pipeline
+
+run:
+    path: pipeline/tasks/maven-build.sh

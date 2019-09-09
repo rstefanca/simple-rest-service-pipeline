@@ -1,0 +1,23 @@
+resources:
+- name: source-code-resource
+  type: git
+  source: 
+    branch: master
+    uri: https://github.com/rstefanca/simple-rest-service
+
+- name: pipeline-resource
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/rstefanca/simple-rest-service-pipeline
+
+jobs:
+- name: job-build-and-verify
+  plan:
+  - get: source-code-resource
+    trigger: true
+  - get: pipeline-resource
+  - task: build-and-verify
+    file: pipeline-resource/tasks/maven-build.yml
+    input_mapping: {source-code: source-code-resource, pipeline: pipeline-resource}
+
